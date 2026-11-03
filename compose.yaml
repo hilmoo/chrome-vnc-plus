@@ -1,0 +1,19 @@
+services:
+  chrome:
+    build: .
+    container_name: chrome-vnc
+    shm_size: "2gb"
+    ports:
+      - "6080:6080"   # noVNC  - interactive   http://localhost:6080/vnc.html
+      - "6081:6081"   # noVNC  - view-only     http://localhost:6081/vnc.html
+      - "5900:5900"   # raw VNC interactive
+      - "5901:5901"   # raw VNC view-only
+      - "8080:8080"   # GET /screenshot
+      - "8931:8931"   # chrome-devtools-mcp (streamable HTTP at /mcp)
+    volumes:
+      - chrome-data:/data
+    env_file: [.env]
+    restart: unless-stopped
+
+volumes:
+  chrome-data:
