@@ -14,6 +14,7 @@ services:
       - chrome-data:/data
     env_file: [.env]
     restart: unless-stopped
+    stop_grace_period: 30s
 
 volumes:
   chrome-data:

@@ -44,6 +44,7 @@ MCP client config:
 | `RESOLUTION` | `1280x720` | Screen / Chrome window size |
 | `DEPTH` | `24` | Color depth |
 | `START_URL` | `about:blank` | Page opened on launch |
+| `RESTORE_SESSION` | `true` | `true`: reopen last-run tabs on restart (`START_URL` only on first run). `false`: always open `START_URL` |
 | `CHROME_ARGS` | *(built-in list in `chrome.sh`)* | Replaces the default Chrome flags |
 | `CHROME_EXTRA_ARGS` | | Appended to the default flags |
 | `CHROME_PROFILE_DIR` | `/data/profile` | Chrome user-data dir (persistent) |

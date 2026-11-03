@@ -42,7 +42,7 @@ RUN chmod +x /usr/local/bin/*
 ENV DISPLAY=:0 \
     RESOLUTION=1280x720 DEPTH=24 \
     VNC_PASSWORD= VNC_VIEW_PASSWORD= \
-    START_URL=about:blank \
+    START_URL=about:blank RESTORE_SESSION=true \
     CHROME_ARGS= CHROME_EXTRA_ARGS= \
     CHROME_PROFILE_DIR=/data/profile \
     CDP_PORT=9222 \
