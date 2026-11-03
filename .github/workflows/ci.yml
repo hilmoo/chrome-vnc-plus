@@ -29,14 +29,14 @@ jobs:
           context: .
           platforms: linux/amd64
           load: true
-          tags: chrome-vnc:test
+          tags: chrome-vnc-plus:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Smoke test
         run: |
           docker run -d --name t --shm-size=1g -e VNC_PASSWORD=ci -e START_URL=about:blank \
-            -p 8080:8080 -p 8931:8931 -p 6080:6080 -p 6081:6081 chrome-vnc:test
+            -p 8080:8080 -p 8931:8931 -p 6080:6080 -p 6081:6081 chrome-vnc-plus:test
           for i in $(seq 1 60); do
             [ "$(docker inspect -f '{{.State.Health.Status}}' t)" = healthy ] && break; sleep 2
           done

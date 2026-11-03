@@ -1,7 +1,7 @@
 services:
   chrome:
     build: .
-    container_name: chrome-vnc
+    container_name: chrome-vnc-plus
     shm_size: "2gb"
     ports:
       - "6080:6080"   # noVNC  - interactive   http://localhost:6080/vnc.html
