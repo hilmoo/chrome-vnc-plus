@@ -2,7 +2,9 @@ FROM node:22-bookworm-slim AS node
 
 FROM debian:bookworm-slim
 
+# renovate: datasource=npm depName=chrome-devtools-mcp
 ARG CHROME_DEVTOOLS_MCP_VERSION=1.12.0
+# renovate: datasource=npm depName=supergateway
 ARG SUPERGATEWAY_VERSION=4.2.1
 ENV DEBIAN_FRONTEND=noninteractive
 

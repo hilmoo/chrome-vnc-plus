@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits"],
+  "schedule": ["before 6am on monday"],
+  "packageRules": [
+    {
+      "description": "Automerge minor/patch/digest once CI passes; majors need a manual review",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
+      "automerge": true
+    },
+    {
+      "description": "chrome-devtools-mcp is pre-stable-ish and drives the tool surface: review every update",
+      "matchPackageNames": ["chrome-devtools-mcp"],
+      "automerge": false
+    },
+    {
+      "description": "chrome-devtools-mcp requires Node ^22.12: keep the node image on 22 until reviewed",
+      "matchPackageNames": ["node"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ],
+  "customManagers": [
+    {
+      "description": "Dockerfile ARG versions annotated with '# renovate: datasource=... depName=...'",
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)Dockerfile$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\s]+)\\s+ARG [A-Z_]+=(?<currentValue>[^\\s]+)"
+      ]
+    }
+  ]
+}
