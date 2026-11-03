@@ -22,6 +22,7 @@ DEFAULT_ARGS=(
   --disable-logging
   --disable-breakpad
   --disable-component-update
+  --test-type
 )
 # shellcheck disable=SC2206
 ARGS=(${CHROME_ARGS:-${DEFAULT_ARGS[@]}} $CHROME_EXTRA_ARGS)
