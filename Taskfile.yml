@@ -77,4 +77,4 @@ tasks:
         if [ "${DRY:-false}" = "true" ]; then echo "[dry run] would tag and push $next"; exit 0; fi
         git tag -a "$next" -m "Release $next"
         git push "$REMOTE" "$next"
-        echo "pushed $next - CI will publish the image"
+        echo "pushed $next - CI will publish the image and create the GitHub release"
