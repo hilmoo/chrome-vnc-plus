@@ -35,10 +35,10 @@ jobs:
 
       - name: Smoke test
         run: |
-          docker run -d --name t --shm-size=1g -e VNC_PASSWORD=ci -e START_URL=about:blank \
+          docker run -d --name smoke --shm-size=1g -e VNC_PASSWORD=ci -e START_URL=about:blank \
             -p 8080:8080 -p 8931:8931 -p 6080:6080 -p 6081:6081 chrome-vnc-plus:test
           for i in $(seq 1 60); do
-            [ "$(docker inspect -f '{{.State.Health.Status}}' t)" = healthy ] && break; sleep 2
+            [ "$(docker inspect -f '{{.State.Health.Status}}' smoke)" = healthy ] && break; sleep 2
           done
           sleep 10
           curl -fsS -o shot.png -w 'screenshot: %{http_code} %{size_download}B\n' localhost:8080/screenshot
@@ -50,15 +50,15 @@ jobs:
             -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
             | grep -q chrome_devtools
           # watchdog: killing chrome must bring it back
-          docker exec t pkill -9 -f remote-debugging-port
+          docker exec smoke pkill -9 -f remote-debugging-port
           for i in $(seq 1 30); do
-            docker exec t curl -fs localhost:9222/json/version >/dev/null && ok=1 && break; sleep 2
+            docker exec smoke curl -fs localhost:9222/json/version >/dev/null && ok=1 && break; sleep 2
           done
           test "$ok" = 1
 
       - name: Dump logs on failure
         if: failure()
-        run: docker logs t || true
+        run: docker logs smoke || true
 
       - uses: actions/upload-artifact@v4
         if: always()
